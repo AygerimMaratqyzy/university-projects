@@ -1,9 +1,0 @@
-first_name,last_name,phone,phone_type,email,birthday,group
-Alice,Smith,77012345678,mobile,alice@gmail.com,1990-04-15,Friend
-Bob,Johnson,77023456789,work,bob@work.com,1985-08-22,Work
-Carol,Williams,77034567890,home,carol@yahoo.com,1992-12-01,Family
-David,Brown,77045678901,mobile,david@gmail.com,1988-03-30,Friend
-Eva,Jones,77056789012,mobile,eva@mail.com,1995-07-19,Other
-Frank,Garcia,77067890123,work,frank@corp.com,1980-11-05,Work
-Grace,Martinez,77078901234,home,,1993-02-28,Family
-Henry,Davis,77089012345,mobile,henry@gmail.com,,Friend
