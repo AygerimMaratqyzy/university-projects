@@ -3,21 +3,21 @@ import sys
 
 pygame.init()
 
-
+# ── Constants ──────────────────────────────────────────────
 SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
 TOOLBAR_WIDTH = 120       # Width of the left toolbar panel
 CANVAS_X      = TOOLBAR_WIDTH  # Canvas starts after toolbar
 FPS           = 60
 
-#Colors 
+# ── Colors ─────────────────────────────────────────────────
 WHITE      = (255, 255, 255)
 BLACK      = (  0,   0,   0)
 GRAY       = (200, 200, 200)
 DARK_GRAY  = (100, 100, 100)
 LIGHT_BLUE = (173, 216, 230)
 
-#Color palette available to the user
+# ── Color palette available to the user ───────────────────
 PALETTE = [
     (  0,   0,   0),   # Black
     (255, 255, 255),   # White
@@ -33,22 +33,22 @@ PALETTE = [
     (128, 128, 128),   # Gray
 ]
 
-#Display
+# ── Display ────────────────────────────────────────────────
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Paint")
 clock  = pygame.time.Clock()
 
-#Fonts
+# ── Fonts ──────────────────────────────────────────────────
 font       = pygame.font.SysFont("Verdana", 11, bold=True)
 font_small = pygame.font.SysFont("Verdana", 9)
 
-#Canvas surface (separate from screen)
+# ── Canvas surface (separate from screen) ─────────────────
 # Drawing happens on this surface so toolbar stays clean
 canvas = pygame.Surface((SCREEN_WIDTH - TOOLBAR_WIDTH, SCREEN_HEIGHT))
 canvas.fill(WHITE)
 
 
-#Button class
+# ── Button class ───────────────────────────────────────────
 class Button:
     def __init__(self, x, y, w, h, label, color=GRAY):
         self.rect  = pygame.Rect(x, y, w, h)
@@ -72,7 +72,7 @@ class Button:
         return self.rect.collidepoint(pos)
 
 
-#Tool buttons (left toolbar)
+# ── Tool buttons (left toolbar) ────────────────────────────
 btn_pencil = Button(10, 10,  100, 30, "Pencil")
 btn_rect   = Button(10, 50,  100, 30, "Rectangle")
 btn_circle = Button(10, 90,  100, 30, "Circle")
@@ -82,7 +82,7 @@ btn_clear  = Button(10, 180, 100, 30, "Clear", color=(255, 200, 200))
 tool_buttons = [btn_pencil, btn_rect, btn_circle, btn_eraser]
 
 
-#Color swatches
+# ── Color swatches ─────────────────────────────────────────
 def draw_palette(surface, selected_color):
     """
     Draw a grid of color swatches in the toolbar.
@@ -131,7 +131,7 @@ def get_swatch_click(pos, start_x, start_y, swatch_size, cols):
     return None
 
 
-#Draw brush size indicator
+# ── Draw brush size indicator ──────────────────────────────
 def draw_brush_size(surface, size):
     """Show current brush size and +/- buttons."""
     label = font.render(f"Size: {size}", True, BLACK)
@@ -146,7 +146,7 @@ def draw_brush_size(surface, size):
     surface.blit(font.render("+", True, BLACK), (58, 420))
 
 
-#Draw current color preview
+# ── Draw current color preview ─────────────────────────────
 def draw_color_preview(surface, color):
     """Show a preview box of the currently selected drawing color."""
     label = font.render("Current:", True, BLACK)
@@ -155,9 +155,9 @@ def draw_color_preview(surface, color):
     pygame.draw.rect(surface, DARK_GRAY,  (10, 478, 100, 30), 2, border_radius=4)
 
 
-#Main application
+# ── Main application ───────────────────────────────────────
 def main():
-    #State variables
+    # ── State variables ────────────────────────────────────
     current_tool  = "pencil"   # Active drawing tool
     current_color = BLACK      # Active drawing color
     brush_size    = 5          # Brush/pen radius in pixels
@@ -179,13 +179,13 @@ def main():
         # Offset mouse position relative to canvas (subtract toolbar width)
         canvas_mouse = (mouse_pos[0] - CANVAS_X, mouse_pos[1])
 
-        #Events
+        # ── Events ─────────────────────────────────────────
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            #Key shortcuts
+            # ── Key shortcuts ───────────────────────────────
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -200,7 +200,7 @@ def main():
                 if event.key == pygame.K_e:
                     current_tool = "eraser"
 
-            #Mouse button pressed
+            # ── Mouse button pressed ────────────────────────
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # Check toolbar button clicks
                 if mouse_pos[0] < TOOLBAR_WIDTH:
@@ -247,7 +247,7 @@ def main():
                         pygame.draw.circle(canvas, WHITE,
                                            canvas_mouse, brush_size * 2)
 
-            #Mouse button released
+            # ── Mouse button released ───────────────────────
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 if drawing and start_pos and mouse_pos[0] >= TOOLBAR_WIDTH:
 
@@ -273,7 +273,7 @@ def main():
                 start_pos = None
                 preview.fill((0, 0, 0, 0))  # Clear the ghost preview
 
-            #Mouse movement
+            # ── Mouse movement ──────────────────────────────
             if event.type == pygame.MOUSEMOTION and drawing:
                 if mouse_pos[0] >= TOOLBAR_WIDTH:
 
@@ -310,7 +310,7 @@ def main():
 
                     last_pos = canvas_mouse
 
-        #Update active tool button highlights
+        # ── Update active tool button highlights ────────────
         for btn in tool_buttons:
             btn.active = False
         if current_tool == "pencil": btn_pencil.active = True
@@ -318,7 +318,7 @@ def main():
         if current_tool == "circle": btn_circle.active = True
         if current_tool == "eraser": btn_eraser.active = True
 
-        #Draw everything
+        # ── Draw everything ─────────────────────────────────
 
         # Draw toolbar background
         screen.fill(GRAY)

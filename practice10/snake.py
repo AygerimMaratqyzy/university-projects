@@ -4,18 +4,18 @@ import sys
 
 pygame.init()
 
-#Constants 
+# ── Constants ──────────────────────────────────────────────
 CELL        = 20          # Size of each grid cell in pixels
 COLS        = 30          # Number of columns in the grid
 ROWS        = 25          # Number of rows in the grid
 WIDTH       = CELL * COLS # Screen width  = 600px
 HEIGHT      = CELL * ROWS # Screen height = 500px
-FPS         = 7         # Starting frames per second (snake speed)
+FPS         = 10          # Starting frames per second (snake speed)
 
 FOODS_PER_LEVEL = 3       # How many foods eaten to advance to next level
 SPEED_INCREMENT = 1      # How much FPS increases per level
 
-#Colors
+# ── Colors ─────────────────────────────────────────────────
 BLACK      = (  0,   0,   0)
 WHITE      = (255, 255, 255)
 GREEN      = ( 50, 205,  50)
@@ -25,18 +25,18 @@ YELLOW     = (255, 215,   0)
 GRAY       = ( 40,  40,  40)
 DARK_GRAY  = ( 25,  25,  25)
 
-#Display
+# ── Display ────────────────────────────────────────────────
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Snake")
 clock  = pygame.time.Clock()
 
-#Fonts
+# ── Fonts ──────────────────────────────────────────────────
 font_big   = pygame.font.SysFont("Verdana", 48, bold=True)
 font_med   = pygame.font.SysFont("Verdana", 28)
 font_small = pygame.font.SysFont("Verdana", 18)
 
 
-#Draw grid background 
+# ── Draw grid background ───────────────────────────────────
 def draw_background():
     """Fill screen with alternating dark cells for a grid look."""
     for row in range(ROWS):
@@ -46,8 +46,12 @@ def draw_background():
                              (col * CELL, row * CELL, CELL, CELL))
 
 
-#Draw the snake
+# ── Draw the snake ─────────────────────────────────────────
 def draw_snake(snake):
+    """
+    Draw each segment of the snake.
+    Head is bright green, body segments are dark green.
+    """
     for i, (col, row) in enumerate(snake):
         color = GREEN if i == 0 else DARK_GREEN
         # Outer rectangle (the cell)
@@ -58,15 +62,17 @@ def draw_snake(snake):
                          (col * CELL + 2, row * CELL + 2, CELL - 4, CELL - 4), 1)
 
 
-#Draw the food
+# ── Draw the food ──────────────────────────────────────────
 def draw_food(food):
+    """Draw food as a red circle inside its grid cell."""
     col, row = food
     center = (col * CELL + CELL // 2, row * CELL + CELL // 2)
     pygame.draw.circle(screen, RED, center, CELL // 2 - 2)
 
 
-#Draw HUD (score, level, speed)
+# ── Draw HUD (score, level, speed) ────────────────────────
 def draw_hud(score, level, fps):
+    """Draw score, level, and current speed at the top of the screen."""
     score_text = font_small.render(f"Score: {score}", True, WHITE)
     level_text = font_small.render(f"Level: {level}", True, YELLOW)
     speed_text = font_small.render(f"Speed: {fps}",   True, WHITE)
@@ -75,16 +81,24 @@ def draw_hud(score, level, fps):
     screen.blit(speed_text, (WIDTH - speed_text.get_width() - 10, 5))
 
 
-#Generate random food position
+# ── Generate random food position ─────────────────────────
 def random_food(snake):
+    """
+    Keep generating random positions until one is found
+    that is not occupied by the snake body.
+    """
     while True:
         pos = (random.randint(0, COLS - 1), random.randint(0, ROWS - 1))
         if pos not in snake:   # Make sure food doesn't spawn on snake
             return pos
 
 
-#Show centered message screen
+# ── Show centered message screen ──────────────────────────
 def show_screen(title, subtitle):
+    """
+    Display a message screen with a title and subtitle.
+    Waits for the player to press SPACE or ENTER to continue.
+    """
     screen.fill(BLACK)
     t = font_big.render(title,    True, YELLOW)
     s = font_med.render(subtitle, True, WHITE)
@@ -103,8 +117,9 @@ def show_screen(title, subtitle):
                     return
 
 
-#Level-up screen
+# ── Level-up screen ────────────────────────────────────────
 def show_level_up(level, fps):
+    """Show a brief level-up notification."""
     screen.fill(BLACK)
     t = font_big.render(f"Level {level}!", True, YELLOW)
     s = font_med.render(f"Speed increased to {fps}! Press SPACE", True, WHITE)
@@ -122,10 +137,19 @@ def show_level_up(level, fps):
                     return
 
 
-#Main game function
+# ── Main game function ─────────────────────────────────────
 def game():
+    """
+    Main game loop. Handles:
+    - Snake movement and growth
+    - Wall collision detection
+    - Self collision detection
+    - Food spawning
+    - Level progression and speed increase
+    - Score tracking
+    """
 
-    #Initial state
+    # ── Initial state ──────────────────────────────────────
     # Snake starts as 3 segments in the middle of the screen
     snake     = [(COLS // 2, ROWS // 2),
                  (COLS // 2 - 1, ROWS // 2),
@@ -138,7 +162,7 @@ def game():
     current_fps    = FPS       # Current speed (increases each level)
     foods_eaten    = 0         # Count foods eaten in current level
 
-    #Game Loop
+    # ── Game Loop ──────────────────────────────────────────
     while True:
 
         # 1. Handle input events
@@ -199,7 +223,7 @@ def game():
         clock.tick(current_fps)   # Speed controlled by current_fps
 
 
-#Program Entry Point
+# ── Program Entry Point ────────────────────────────────────
 show_screen("SNAKE", "Press SPACE to start")
 
 while True:
