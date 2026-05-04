@@ -1,0 +1,122 @@
+[
+  {
+    "id": 26,
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice@gmail.com",
+    "birthday": "1990-04-15",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Friend",
+    "phones": [
+      {
+        "phone": "77012345678",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "first_name": "Bob",
+    "last_name": "Johnson",
+    "email": "bob@work.com",
+    "birthday": "1985-08-22",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Work",
+    "phones": [
+      {
+        "phone": "77023456789",
+        "type": "work"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "first_name": "Carol",
+    "last_name": "Williams",
+    "email": "carol@yahoo.com",
+    "birthday": "1992-12-01",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Family",
+    "phones": [
+      {
+        "phone": "77034567890",
+        "type": "home"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "first_name": "David",
+    "last_name": "Brown",
+    "email": "david@gmail.com",
+    "birthday": "1988-03-30",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Friend",
+    "phones": [
+      {
+        "phone": "77045678901",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "first_name": "Eva",
+    "last_name": "Jones",
+    "email": "eva@mail.com",
+    "birthday": "1995-07-19",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Other",
+    "phones": [
+      {
+        "phone": "77056789012",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "first_name": "Frank",
+    "last_name": "Garcia",
+    "email": "frank@corp.com",
+    "birthday": "1980-11-05",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Work",
+    "phones": [
+      {
+        "phone": "77067890123",
+        "type": "work"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "first_name": "Grace",
+    "last_name": "Martinez",
+    "email": null,
+    "birthday": "1993-02-28",
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Family",
+    "phones": [
+      {
+        "phone": "77078901234",
+        "type": "home"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "first_name": "Henry",
+    "last_name": "Davis",
+    "email": "henry@gmail.com",
+    "birthday": null,
+    "created_at": "2026-05-04 13:35:33.400326",
+    "grp": "Friend",
+    "phones": [
+      {
+        "phone": "77089012345",
+        "type": "mobile"
+      }
+    ]
+  }
+]
