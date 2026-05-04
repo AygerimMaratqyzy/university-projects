@@ -1,7 +1,0 @@
-a = int(input("Enter your first number:"))
-b = int(input("Enter your second number:"))
-
-print("Sum:", a + b)
-print("Difference:", a - b)
-print("Product:", a * b)
-print("Quotient:", a / b)
